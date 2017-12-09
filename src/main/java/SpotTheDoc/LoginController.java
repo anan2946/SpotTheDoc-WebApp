@@ -23,6 +23,16 @@ public class LoginController {
 		return patient.registerPatient();
 		
 	}
+
+	@RequestMapping(method=RequestMethod.POST,value= "/registerDoctor")
+	public String registerDoctorRequest(@RequestBody Doctor doctor) {
+		//to do authenticate User
+		System.out.println(" register user reuqest "+ doctor.doctorList.size());
+		return doctor.registerDoctor();
+		
+	}
+
+	
 	
 	@RequestMapping("/test")
 	public String testCall() {

@@ -11,9 +11,11 @@ public class Patient extends User {
     
 
     /*** Default constructor*/
-    public Patient(){}
+    public Patient(){
+    	setRole(RoleType.Patient);
+    }
     public Patient(String name, String userName, String password) {
-    	super(userName,password);
+    	super(userName,password,RoleType.Patient);
     	this.name=name;
     }
 
@@ -28,27 +30,22 @@ public class Patient extends User {
 	}
 	
 	public String registerPatient() {
-		return registerPatient(this.password,this.name,this.userName);
-	}
-	
-	public String registerPatient(String password, String name, String userName) {
-        String content;
-        if (addPatientDetails(name, userName, password)) {
-            content = "Registered successfully";
-        } else {
-            content = "Choose another userName";
-        }
-        return content;
-    }
-    
+		 String content;
+	        if (addPatientDetails()) {
+	            content = "Registered successfully";
+	        } else {
+	            content = "Choose another userName";
+	        }
+	        return content;	
+	}    
     /**
      * @param userName
      * @return
      */
-    public Boolean addPatientDetails(String name, String userName, String password) {
+    public Boolean addPatientDetails() {
         /* Patient list should not be the part of patient class.It contains list of patients and should be either part of singleton or separate singleton class*/
-    	if (checkuserNameAvailability(userName)) {
-            patientList.add(new Patient(name, userName, password));
+    	if (checkuserNameAvailability(this.userName)) {
+            patientList.add(this);
             return true;
         } else {
             return false;
