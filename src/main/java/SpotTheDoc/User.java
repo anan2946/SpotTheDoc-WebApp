@@ -2,8 +2,8 @@ package SpotTheDoc;
 
 public class User {
 	
-	private String userName;
-    private String password;
+	protected String userName;
+	protected String password;
     private RoleType role;
     
     /*** Default constructor*/
@@ -48,5 +48,10 @@ public class User {
 	public void setRole(RoleType role) {
 		this.role = role;
 	}
+	
+	public Boolean checkuserNameAvailability(String userName) {
+        // TODO implement here
+        return true;
+    }
     
 }

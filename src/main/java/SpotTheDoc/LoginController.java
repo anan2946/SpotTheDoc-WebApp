@@ -15,11 +15,13 @@ public class LoginController {
 		return user.login();
 	}
 	
-	@RequestMapping("/register")
-	public Boolean registerRequest() {
+	@RequestMapping(method=RequestMethod.POST,value= "/registerPatient")
+	public String registerPatientRequest(@RequestBody Patient patient) {
 		//to do authenticate User
-		System.out.println(" register user reuqest ");
-		return true;
+
+		System.out.println(" register user reuqest "+patient.patientList.size());
+		return patient.registerPatient();
+		
 	}
 	
 	@RequestMapping("/test")
