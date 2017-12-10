@@ -3,24 +3,24 @@ package SpotTheDoc;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public class Doctor extends User{
+public class Doctor extends User implements Observer{
 	    private String name;
 	    private String phoneNo;
 	    private ArrayList<String> speciality;
 	    ArrayList<Time> officehours;
 	    private Address address;
 	   /* private */static ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
-
+	   public ArrayList<Appointment> pendingAppointments = new ArrayList<Appointment>();
+	   private ArrayList<Appointment> doctorAppointmentList = new ArrayList<Appointment>();
 	    public Doctor(){
 	    	setRole(RoleType.Doctor);
-	    }    
-	    public Doctor(String password, 
-	    				String userName, 
-	    				Address address,
-	    				ArrayList<String> specialization, 
-	    				String phoneNo, 
-	    				String name,
-	    				ArrayList<Time> officehours) {
+	    }  
+	    
+	    public String toString()
+	    {
+	    	return name;
+	    }
+	    public Doctor(String password,String userName,Address address,ArrayList<String> specialization,String phoneNo,String name,ArrayList<Time> officehours) {
 	        //addDoctorDetails(address, specialization, contact, name, officehours);
 	    	super(userName,password,RoleType.Doctor);
 	    	this.address=address;
@@ -29,7 +29,11 @@ public class Doctor extends User{
 	    	this.name=name;
 	    	this.officehours = officehours;
 	    }
-	    
+	    public ArrayList<Appointment> getAppointmentList() {
+	        // TODO implement here
+	        return doctorAppointmentList;
+	    }
+
 	    
 	    public String registerDoctor() {
 	        String content;
@@ -78,6 +82,34 @@ public class Doctor extends User{
 			this.address = address;
 		}
 	    
+		public static ArrayList<Doctor> getDoctorList() {
+	        // TODO implement here
+	        return doctorList;
+	    }
+		public void addToAppointmentList(Appointment appointment) {
+	        // TODO implement here
+	        doctorAppointmentList.add(appointment);
+	    }
+		public static Doctor getObjectByuserName(String userName) {
+	        // TODO implement here
+	        for (Doctor doctor : getDoctorList()) {
+	            if (userName.equals(doctor.getUserName())) {
+	                return doctor;
+	            }
+	        }
+	        return null;
+	    }
+		
+		/**
+	     * @param appointment
+	     * @return
+	     */
+	    public void update(Appointment appointment) {
+	        // TODO implement here
+	        if (appointment.getStatus().equals(Status.Pending)) {
+	            pendingAppointments.add(appointment);
+	        }
+	    }
 	    
 }/*
 
@@ -193,8 +225,7 @@ public class Doctor extends User implements Observer {
     *//**
      * @return
      *//*
-    public void updateDoctorRoleType() {
-        // TODO implement here
+    public void updateDoctorRoleType() {        // TODO implement here
 
     }
 

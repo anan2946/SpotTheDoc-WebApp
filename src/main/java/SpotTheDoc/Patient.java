@@ -2,12 +2,13 @@ package SpotTheDoc;
 
 import java.util.ArrayList;
 
-public class Patient extends User {
+public class Patient extends User implements Observer {
 	
 
     private String name;
    // private ArrayList<Appointment> AppointmentList;
     /*private*/ static ArrayList<Patient> patientList = new ArrayList<Patient>();
+    private static ArrayList<Appointment> patientAppointmentList = new ArrayList<Appointment>();
     
 
     /*** Default constructor*/
@@ -51,16 +52,35 @@ public class Patient extends User {
             return false;
         }
     }
-//
-//    public static Patient getObjectByuserName(String userName) {
-//        // TODO implement here
-//        for (Patient patient : getPatientList()) {
-//            if (userName.equals(patient.getuserName())) {
-//                return patient;
-//            }
-//        }
-//        return null;
-//    }
+
+    public static Patient getObjectByuserName(String userName) {
+        // TODO implement here
+        for (Patient patient : getPatientList()) {
+            if (userName.equals(patient.getUserName())) {
+                return patient;
+            }
+        }
+        return null;
+    }
+    public static ArrayList<Patient> getPatientList() {
+        // TODO implement here
+        return patientList;
+    }
+    
+    public void update(Appointment appointment) {
+        if (appointment.getStatus().equals(Status.Approved)) {
+            updateAppointmentList(appointment);
+        }
+    }
+    
+    /**
+     * @param value
+     * @return
+     */
+    public void updateAppointmentList(Appointment value) {
+        // TODO implement here
+        patientAppointmentList.add(value);
+    }
 //
 //    /**
 //     * @return
@@ -115,10 +135,7 @@ public class Patient extends User {
 //    /**
 //     * @return
 //     */
-//    public static ArrayList<Patient> getPatientList() {
-//        // TODO implement here
-//        return null;
-//    }
+
 //
 //    /**
 //     * @param value
